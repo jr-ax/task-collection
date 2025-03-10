@@ -68,6 +68,11 @@
         "type": "shell",
         "command": "apax plc-info set-mode STOP -t ${input:ipAddress}",
         "problemMatcher": []
+      },      {
+        "label": "ONLINE | Get performance info",
+        "type": "shell",
+        "command": "apax perf-info -t ${input:ipAddress}",
+        "problemMatcher": []
       }
     ]
   }

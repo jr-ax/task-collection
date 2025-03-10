@@ -216,6 +216,12 @@
       "problemMatcher": []
     },
     {
+      "label": "ONLINE | Get performance info",
+      "type": "shell",
+      "command": "apax perf-info -t ${input:ipAddress} -C ${input:certificatePath} -p ${input:password}",
+      "problemMatcher": []
+    },
+    {
       "label": "Access Protection | Users | List",
       "type": "shell",
       "command": "apax hwc manage-users list -i $env:hwcFolderPath -n ${input:plcName}",

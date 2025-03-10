@@ -175,6 +175,12 @@
         "problemMatcher": []
       },
       {
+        "label": "ONLINE | Get performance info",
+        "type": "shell",
+        "command": "apax perf-info -t ${input:ipAddress}",
+        "problemMatcher": []
+      },
+      {
         "label": "HWCN | Create template file from MLFB",
         "type": "shell",
         "command": "apax hwc generate-template-file --order-number '${input:orderNumber}' --version 'V${input:firmwareVersion}' -o '${input:outputFileName}'",
