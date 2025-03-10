@@ -39,8 +39,24 @@ This extension automatically detects all tasks and shows them in an alphabetical
 
 ![image](https://github.com/user-attachments/assets/2a8da7c2-d953-4967-bdd4-dc09b0969d61)
 
+## Customizations
+
+Feel free to modify the tasks.json files. To change the default values of the input fields, modify the values "default" at the inputs section.
+```json
+  "inputs": [
+    {
+      "type": "promptString",
+      "id": "ipAddress",
+      "description": "The target PLC IP address",
+      "default": "192.168.0.1"
+    }
+  ]
+```
+
 ## Important notes
 
+- The tasks for the IT-like engineering workflow are configured for secure communication with certificate and password
+- The tasks for the TIAX workflows do not include secure communication
 
 ## Contribution
 
