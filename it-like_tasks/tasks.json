@@ -139,6 +139,8 @@
       "type": "shell",
       "command": "apax sld load --accept-security-disclaimer -i ${workspaceFolder}\\bin\\1500 -t ${input:ipAddress} -m ${input:dlMode} -C ${input:certificatePath} -p ${input:password} -r"
     },
+
+
     {
       "label": "ONLINE | Set to RUN",
       "type": "shell",
@@ -149,6 +151,28 @@
       "type": "shell",
       "command": "apax plc-info set-mode STOP -t ${input:ipAddress} -C ${input:certificatePath} -p ${input:password}"
     },
+    {
+      "label": "ONLINE | Get PLC infos",
+      "type": "shell",
+      "command": "apax plc-info inspect -t ${input:ipAddress} -C ${input:certificatePath} -p ${input:password}"
+    },
+    {
+      "label": "ONLINE | Compare modules & stations",
+      "type": "shell",
+      "command": "apax hw-diag list -t ${input:ipAddress} -C ${input:certificatePath} -p ${input:password}"
+    },
+    {
+      "label": "ONLINE | Compare SW Online/Offline",
+      "type": "shell",
+      "command": "apax sld compare -t ${input:ipAddress} -m ${input:cmpMode} -C ${input:certificatePath} -p ${input:password}"
+    },
+    {
+      "label": "ONLINE | Get performance info",
+      "type": "shell",
+      "command": "apax perf-info -t ${input:ipAddress} -C ${input:certificatePath} -p ${input:password}"
+    },
+
+
     {
       "label": "HWCN | Create template file from MLFB",
       "type": "shell",
@@ -190,21 +214,9 @@
       "command": "apax hwld --input $env:hwcBinFolderPath/${input:plcName} -t ${input:ipAddress} --accept-security-disclaimer -C ${input:certificatePath} -M:${input:password}",
       "dependsOn": "HWCN | Compile"
     },
-    {
-      "label": "ONLINE | Compare modules & stations",
-      "type": "shell",
-      "command": "apax hw-diag list -t ${input:ipAddress} -C ${input:certificatePath} -p ${input:password}"
-    },
-    {
-      "label": "ONLINE | Compare SW Online/Offline",
-      "type": "shell",
-      "command": "apax sld compare -t ${input:ipAddress} -m ${input:cmpMode} -C ${input:certificatePath} -p ${input:password}"
-    },
-    {
-      "label": "ONLINE | Get performance info",
-      "type": "shell",
-      "command": "apax perf-info -t ${input:ipAddress} -C ${input:certificatePath} -p ${input:password}"
-    },
+
+
+    
     {
       "label": "Access Protection | Users | List",
       "type": "shell",

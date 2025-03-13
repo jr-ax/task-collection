@@ -62,10 +62,14 @@ To modify other environment variables used, change them in the "options" section
     },
 ```
 
-## Important notes
+## Limitations
 
 - The tasks for the IT-like engineering workflow are configured for secure communication with certificate and password. You need to change them accordingly if you want to use UMAC with username and password.
 - The tasks for the TIAX workflows do not include secure communication. You need to add that manually if you need it (See tasks in IT-like engineering workflow folder).
+
+## Known Issues
+
+- For the task "HWCN | Setup | Certificates | Create" you need a script in your apax.yml called "create_certificate". This script and the corresponding .sh-file it calls can be found in the it-like-engineering template.
 
 ## Contribution
 
