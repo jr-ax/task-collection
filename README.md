@@ -53,10 +53,19 @@ Feel free to modify the tasks.json files. To change the default values of the in
   ]
 ```
 
+To modify other environment variables used, change them in the "options" sections:
+```json
+    "options": {
+      "env": {
+          "tiapPath": "C:/Program Files/Siemens/Automation/Portal V19"
+      }
+    },
+```
+
 ## Important notes
 
-- The tasks for the IT-like engineering workflow are configured for secure communication with certificate and password
-- The tasks for the TIAX workflows do not include secure communication
+- The tasks for the IT-like engineering workflow are configured for secure communication with certificate and password. You need to change them accordingly if you want to use UMAC with username and password.
+- The tasks for the TIAX workflows do not include secure communication. You need to add that manually if you need it (See tasks in IT-like engineering workflow folder).
 
 ## Contribution
 
