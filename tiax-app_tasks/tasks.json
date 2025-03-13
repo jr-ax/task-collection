@@ -35,21 +35,18 @@
       {
         "label": "SW | Compile",
         "type": "shell",
-        "command": "apax build",
-        "problemMatcher": []
+        "command": "apax build"
       },
       {
         "label": "SW | Download",
         "type": "shell",
-        "command": "apax sld load --accept-security-disclaimer -i ${workspaceFolder}\\bin\\1500 -t ${input:ipAddress} -m ${input:dlMode} -r",
-        "problemMatcher": []
+        "command": "apax sld load --accept-security-disclaimer -i ${workspaceFolder}\\bin\\1500 -t ${input:ipAddress} -m ${input:dlMode} -r"
       },
       {
         "label": "SW | Compile & download",
         "type": "shell",
         "command": "apax sld load --accept-security-disclaimer -i ${workspaceFolder}\\bin\\1500 -t ${input:ipAddress} -m ${input:dlMode} -r",
-        "dependsOn": "SW | Compile",
-        "problemMatcher": []
+        "dependsOn": "SW | Compile"
       },
 
 
@@ -57,26 +54,22 @@
       {
         "label": "ONLINE | Compare SW Online/Offline",
         "type": "shell",
-        "command": "apax sld compare -t ${input:ipAddress} -m ${input:cmpMode}",
-        "problemMatcher": []
+        "command": "apax sld compare -t ${input:ipAddress} -m ${input:cmpMode}"
       },
       {
         "label": "ONLINE | Set to RUN",
         "type": "shell",
-        "command": "apax plc-info set-mode RUN -t ${input:ipAddress}",
-        "problemMatcher": []
+        "command": "apax plc-info set-mode RUN -t ${input:ipAddress}"
       },
       {
         "label": "ONLINE | Set to STOP",
         "type": "shell",
-        "command": "apax plc-info set-mode STOP -t ${input:ipAddress}",
-        "problemMatcher": []
+        "command": "apax plc-info set-mode STOP -t ${input:ipAddress}"
       },
       {
         "label": "ONLINE | Get performance info",
         "type": "shell",
-        "command": "apax perf-info -t ${input:ipAddress}",
-        "problemMatcher": []
+        "command": "apax perf-info -t ${input:ipAddress}"
       },
       {
         "label": "ONLINE | Get PLC infos",

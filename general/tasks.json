@@ -5,7 +5,8 @@
     "options": {
       "env": {
           "hwcFolderPath": "hwc",
-          "hwcBinFolderPath": "hwbin"
+          "hwcBinFolderPath": "hwbin",
+          "tiapPath": "C:/Program Files/Siemens/Automation/Portal V19"
       }
     },
     "inputs": [
@@ -126,138 +127,132 @@
       {
         "label": "SW | Compile",
         "type": "shell",
-        "command": "apax build",
-        "problemMatcher": []
+        "command": "apax build"
       },
       {
         "label": "SW | Download",
         "type": "shell",
-        "command": "apax sld load --accept-security-disclaimer -i ${workspaceFolder}\\bin\\1500 -t ${input:ipAddress} -m ${input:dlMode} -r",
-        "problemMatcher": []
+        "command": "apax sld load --accept-security-disclaimer -i ${workspaceFolder}\\bin\\1500 -t ${input:ipAddress} -m ${input:dlMode} -r"
       },
       {
         "label": "SW | Compile & download",
         "type": "shell",
         "command": "apax sld load --accept-security-disclaimer -i ${workspaceFolder}\\bin\\1500 -t ${input:ipAddress} -m ${input:dlMode} -r",
-        "dependsOn": "SW | Compile",
-        "problemMatcher": []
+        "dependsOn": "SW | Compile"
       },
-      {
-        "label": "ONLINE | Compare SW Online/Offline",
-        "type": "shell",
-        "command": "apax sld compare -t ${input:ipAddress} -m ${input:cmpMode}",
-        "problemMatcher": []
-      },
+
+
+
       {
         "label": "TIAX | Create handover documents",
         "type": "shell",
-        "command": "apax ax2tia -i ${workspaceFolder}\\bin\\1500\\${workspaceFolderBasename}.lib -o ${workspaceFolder}\\bin\\handover-folder -t 1500",
-        "dependsOn": "SW | Compile",
-        "problemMatcher": []
+        "command": "apax ax2tia -i ${workspaceFolder}\\bin\\1500\\${workspaceFolderBasename}.lib -o ${workspaceFolder}\\bin\\handover-folder",
+        "dependsOn": "SW | Compile"
       },      
       {
         "label": "TIAX | Create TIA Portal library",
         "type": "shell",
-        "command": "&'C:/Program Files/Siemens/Automation/Portal V19/bin/Siemens.Simatic.Lang.Library.Importer.exe' -i ${workspaceFolder}\\bin\\handover-folder -o ${workspaceFolder}\\bin\\TIAPortalLibrary1500 -u",
-        "dependsOn": "TIAX | Create handover documents",
-        "problemMatcher": []
+        "command": "&$env:tiapPath/bin/Siemens.Simatic.Lang.Library.Importer.exe -i ${workspaceFolder}\\bin\\handover-folder -o ${workspaceFolder}\\tiap-library -u",
+        "dependsOn": "TIAX | Create handover documents"
       },
+
+
       {
         "label": "ONLINE | Set to RUN",
         "type": "shell",
-        "command": "apax plc-info set-mode RUN -t ${input:ipAddress}",
-        "problemMatcher": []
+        "command": "apax plc-info set-mode RUN -t ${input:ipAddress}"
       },
       {
         "label": "ONLINE | Set to STOP",
         "type": "shell",
-        "command": "apax plc-info set-mode STOP -t ${input:ipAddress}",
-        "problemMatcher": []
+        "command": "apax plc-info set-mode STOP -t ${input:ipAddress}"
       },
       {
         "label": "ONLINE | Get performance info",
         "type": "shell",
-        "command": "apax perf-info -t ${input:ipAddress}",
-        "problemMatcher": []
+        "command": "apax perf-info -t ${input:ipAddress}"
       },
+      {
+        "label": "ONLINE | Compare SW Online/Offline",
+        "type": "shell",
+        "command": "apax sld compare -t ${input:ipAddress} -m ${input:cmpMode}"
+      },
+      {
+        "label": "ONLINE | Get PLC infos",
+        "type": "shell",
+        "command": "apax plc-info inspect -t ${input:ipAddress}"
+      },
+      {
+        "label": "ONLINE | Compare modules & stations",
+        "type": "shell",
+        "command": "apax hw-diag list -t ${input:ipAddress} -C ${input:certificatePath} -p ${input:password}"
+      },
+
+
+
       {
         "label": "HWCN | Create template file from MLFB",
         "type": "shell",
-        "command": "apax hwc generate-template-file --order-number '${input:orderNumber}' --version 'V${input:firmwareVersion}' -o '${input:outputFileName}'",
-        "problemMatcher": []
+        "command": "apax hwc generate-template-file --order-number '${input:orderNumber}' --version 'V${input:firmwareVersion}' -o '${input:outputFileName}'"
       },
       {
         "label": "HWCN | Create template file from GSD",
         "type": "shell",
-        "command": "apax hwc generate-template-file --gsd-file-name '${input:gsdFile}' --gsd-id '${input:gsdId}' -o '${input:outputFileName}'",
-        "problemMatcher": []
+        "command": "apax hwc generate-template-file --gsd-file-name '${input:gsdFile}' --gsd-id '${input:gsdId}' -o '${input:outputFileName}'"
       },
       {
         "label": "HWCN | Install GSDML file",
         "type": "shell",
-        "command": "apax hwc install-gsd -i '${input:gsdFile}'",
-        "problemMatcher": []
+        "command": "apax hwc install-gsd -i '${input:gsdFile}'"
       },
       {
         "label": "HWCN | Setup | Certificates | Create",
         "type": "shell",
-        "command": "apax create_certificate",
-        "problemMatcher": []
+        "command": "apax create_certificate"
       },
       {
         "label": "HWCN | Setup | Certificates | Import",
         "type": "shell",
-        "command": "apax hwc import-certificate -n ${input:plcName} -i $env:hwcFolderPath -C ${input:importCertificatePath} -p ${input:password} --purpose ${input:certPurpose}",
-        "problemMatcher": []
+        "command": "apax hwc import-certificate -n ${input:plcName} -i $env:hwcFolderPath -C ${input:importCertificatePath} -p ${input:password} --purpose ${input:certPurpose}"
       },
       {
         "label": "HWCN | Setup | Set Password for secure communication",
         "type": "shell",
-        "command": "apax hwc setup-secure-communication -n ${input:plcName} -i $env:hwcFolderPath -p ${input:password}",
-        "problemMatcher": []
+        "command": "apax hwc setup-secure-communication -n ${input:plcName} -i $env:hwcFolderPath -p ${input:password}"
       },
       {
         "label": "HWCN | Compile",
         "type": "shell",
-        "command": "apax hwc compile --input $env:hwcFolderPath --output $env:hwcBinFolderPath",
-        "problemMatcher": []
+        "command": "apax hwc compile --input $env:hwcFolderPath --output $env:hwcBinFolderPath"
       },
       {
         "label": "HWCN | Compile & Download",
         "type": "shell",
         "command": "apax hwld --input $env:hwcBinFolderPath/${input:plcName} -t ${input:ipAddress} --accept-security-disclaimer -C ${input:certificatePath} -M:${input:password}",
-        "dependsOn": "HWCN | Compile",
-        "problemMatcher": []
+        "dependsOn": "HWCN | Compile"
       },
-      {
-        "label": "ONLINE | Compare modules & stations",
-        "type": "shell",
-        "command": "apax hw-diag list -t ${input:ipAddress} -C ${input:certificatePath} -p ${input:password}",
-        "problemMatcher": []
-      },
+
+
+
       {
         "label": "Access Protection | Users | List",
         "type": "shell",
-        "command": "apax hwc manage-users list -i $env:hwcFolderPath -n ${input:plcName}",
-        "problemMatcher": []
+        "command": "apax hwc manage-users list -i $env:hwcFolderPath -n ${input:plcName}"
       },
       {
         "label": "Access Protection | Set access protection password",
         "type": "shell",
-        "command": "apax hwc set-accessprotection-password -i $env:hwcFolderPath -n ${input:plcName} -l ${input:accessLevel} -p ${input:password}",
-        "problemMatcher": []
+        "command": "apax hwc set-accessprotection-password -i $env:hwcFolderPath -n ${input:plcName} -l ${input:accessLevel} -p ${input:password}"
       },
       {
         "label": "Access Protection | Users | Set password",
         "type": "shell",
-        "command": "apax hwc manage-users -i $env:hwcFolderPath -n ${input:plcName} set-password -u ${input:userName} -p ${input:password}",
-        "problemMatcher": []
+        "command": "apax hwc manage-users -i $env:hwcFolderPath -n ${input:plcName} set-password -u ${input:userName} -p ${input:password}"
       },
       {
         "label": "Access Protection | Users | Delete",
         "type": "shell",
-        "command": "apax hwc manage-users -i $env:hwcFolderPath -n ${input:plcName} delete --userName ${input:userName}",
-        "problemMatcher": []
+        "command": "apax hwc manage-users -i $env:hwcFolderPath -n ${input:plcName} delete --userName ${input:userName}"
       }
     ]
   }

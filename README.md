@@ -9,7 +9,7 @@ This repository provides a collection of different tasks to control SIMATIC AX, 
 In VSCode all tasks are defined in tasks.json files. It is possible to:
 - Use a central tasks.json file (C:\Users\USERNAME\AppData\Roaming\AX Code\User\tasks.json),
 - Use a tasks.json file per profile (C:\Users\USERNAME\AppData\Roaming\AX Code\User\profiles\PROFILE-ID\tasks.json),
-- Use a tasks.json file in the workspace (Workspace-Directory\.vscode\tasks.json)
+- Use a tasks.json file in the workspace (Workspace-Directory\\.vscode\tasks.json)
 
 More info about tasks in VSCode: https://code.visualstudio.com/docs/editor/tasks
 
